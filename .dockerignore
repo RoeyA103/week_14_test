@@ -1,0 +1,8 @@
+.venv
+__pychach__/
+screenshots/
+k8s/
+data/
+commands.txt
+*.md
+.dockerignore
