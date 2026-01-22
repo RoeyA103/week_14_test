@@ -1,0 +1,20 @@
+from the root dir run
+"docker build -t {your-user-name}/api:v1 ."
+
+uplad
+"docker push {your-user-name}/api:v1"
+
+inside the k8s dir run (after you connect to the oc [openshift])
+"oc apply -f mysql-statefuleset.yaml"
+
+only after verifing the server is runnig
+"oc get pods "
+
+run
+"oc apply -f ."
+
+create route
+"oc create route edge --service api"
+
+find it and copy to your web
+"oc get route"

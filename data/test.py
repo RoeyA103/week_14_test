@@ -1,7 +1,14 @@
 
-import requests
+import pandas
 
-files = {'file': open("C:/analiza/week14/week_14_test/data/weapons_list.csv", 'rb')}
+df = pandas.read_csv("weapons_list.csv")
 
+# print(df.head())
 
-response = requests.post('http://localhost:8000/upload', files=files)
+# print(list(df.to_dict("records")[0].values()))
+
+# print(type(df.to_dict("records")[0]["range_km"]))
+
+print(df.info())
+
+print(df.head())
