@@ -117,10 +117,7 @@ def save_records(data:list[dict]):
             );
         """
         for row in data:
-            values = list(row)
-            print("333333333333333333333333")
-            print(values)
-            print("333333333333333333333333")
+            values = list(row.values())
             cursor.execute(query, values)
         conn.commit()
         return True

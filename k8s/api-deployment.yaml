@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: api
-        image: roeyaverbuch/api:v0.15
+        image: roeyaverbuch/api:v1
         ports:
         - containerPort: 8000
         env:
