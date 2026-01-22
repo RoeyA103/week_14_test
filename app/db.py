@@ -70,12 +70,12 @@ def init_db():
             weapon_id VARCHAR(100),
             weapon_name VARCHAR(100),
             weapon_type VARCHAR(100),
-            range_km,
-            weight_kg FLOAT,
+            range_km INTEGER,
+            weight_kg DOUBLE(255,10),
             manufacturer VARCHAR(100),
             origin_country VARCHAR(100),
             storage_location VARCHAR(100),
-            year_estimated INT,
+            year_estimated INT(255),
             risk_level VARCHAR(100)
         );
         """
@@ -118,6 +118,9 @@ def save_records(data:list[dict]):
         """
         for row in data:
             values = list(row)
+            print("333333333333333333333333")
+            print(values)
+            print("333333333333333333333333")
             cursor.execute(query, values)
         conn.commit()
         return True
