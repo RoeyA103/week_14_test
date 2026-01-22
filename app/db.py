@@ -1,13 +1,21 @@
 from mysql.connector import pooling , Error
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+SQL_HOST = os.getenv("SQL_HOST")
+SQL_USER = os.getenv("SQL_USER","root")
+SQL_PASS = os.getenv("SQL_PASS","123")
 
 
 pool = pooling.MySQLConnectionPool(
     pool_name="mypool",      
     pool_size=3,             
     pool_reset_session=True, 
-    host="localhost",
-    user="root",
-    password="123",
+    host=SQL_HOST,
+    user=SQL_USER,
+    password=SQL_PASS,
     # database="weapons_db"
 )
 

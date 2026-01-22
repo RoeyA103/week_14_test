@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+        tier: application
+    spec:
+      containers:
+      - name: api
+        image: roeyaverbuch/api:v1
+        ports:
+        - containerPort: 8000
+        env:
+        - name: SQL_HOST
+          value: "mysql-0.mysql-svc"
+        - name: SQL_USER
+          value: "root"
+        - name: SQL_PASS
+          value: "123"
+        
