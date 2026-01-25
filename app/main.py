@@ -19,10 +19,11 @@ def init():
 def upload_file(file: UploadFile = File(...)):
     validation(file=file)
     df = Data_Processing.get_df(file.file)
-    count = len(df)
+    # count = len(df)
     db.init_db()
-    res = db.save_records(df.to_dict("records"))
-    return {"status": "success","inserted_records": count}
+    # res = db.save_records(df.to_dict("records"))
+    res = db.insert(df)
+    return {"status": "success","inserted_records": res}
 
 
 if __name__=="__main__":

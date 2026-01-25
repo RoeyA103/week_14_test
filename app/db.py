@@ -1,6 +1,8 @@
 from mysql.connector import pooling , Error ,connect
 from dotenv import load_dotenv
 import os
+from pandas import DataFrame
+from sqlalchemy import create_engine 
 
 load_dotenv()
 
@@ -32,6 +34,16 @@ def get_conn():
         return conn
     except Error as e:
         raise e
+
+def get_sqlalchemy_conn():
+    try:
+        conn = create_engine(f"mysql+pymysql://{SQL_USER}:{SQL_PASS}@{SQL_HOST}:3306/weapons_db")
+
+        print("successfully connected!")
+        return conn
+    
+    except Exception as e:
+        return e
 
 
 def create_db():
@@ -95,7 +107,7 @@ def init_db():
 
 def save_records(data:list[dict]):
     try:
-        conn = get_conn()
+        conn = get_sqlalchemy_conn()
         cursor = conn.cursor()
 
         cursor.execute("USE weapons_db;")
@@ -119,7 +131,7 @@ def save_records(data:list[dict]):
         for row in data:
             values = list(row.values())
             cursor.execute(query, values)
-        conn.commit()
+        id = conn.commit()
         return True
     except Error as e:
         raise e
@@ -129,3 +141,13 @@ def save_records(data:list[dict]):
             cursor.close()
         if conn:
             conn.close()        
+
+def insert(df:DataFrame):
+    try:
+        sqlalchemy_conn = get_sqlalchemy_conn()
+
+        id = df.to_sql(name="weapons",con=sqlalchemy_conn,if_exists="replace",index=False,method="multi")
+        print("data saved!!!")
+        return id
+    except Exception as e:
+        raise e
